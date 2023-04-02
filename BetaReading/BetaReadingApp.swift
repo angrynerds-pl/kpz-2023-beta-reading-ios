@@ -11,7 +11,8 @@ import SwiftUI
 struct BetaReadingApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            LoginView()
+            //ContentView()
         }
     }
 }
