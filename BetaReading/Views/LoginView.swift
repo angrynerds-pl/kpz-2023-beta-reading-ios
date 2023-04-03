@@ -19,8 +19,10 @@ struct LoginView: View {
         ZStack {
             Color(red: 67/255, green: 146/255, blue: 138/255).ignoresSafeArea()
             VStack {
-                Image("angryReaders")
+                Image("AngryReaders")
                     .resizable()
+                    .scaledToFit()
+                    .frame(width: 299)
                     .aspectRatio(contentMode: .fit)
                 
                 TextField("Username", text: $username)

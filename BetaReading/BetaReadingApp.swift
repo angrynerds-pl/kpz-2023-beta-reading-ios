@@ -6,13 +6,31 @@
 //
 
 import SwiftUI
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseAuth
 
 @main
 struct BetaReadingApp: App {
+    
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
+    
     var body: some Scene {
         WindowGroup {
-            LoginView()
+            AddText()
+            //LoginView()
             //ContentView()
         }
+    }
+}
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        
+        print("Finished launching!")
+        // Use Firebase library to configure APIs
+        FirebaseApp.configure()
+        return true
     }
 }
