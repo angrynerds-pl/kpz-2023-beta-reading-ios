@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>942571972209-amk2jbmmgq14mam4i338f795ghlj153u.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.942571972209-amk2jbmmgq14mam4i338f795ghlj153u</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBgApPMtd_yxwEXSWpK1ya-r3hz1CP22iQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>942571972209</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>me.gosciniak.julia.BetaReading</string>
+	<key>PROJECT_ID</key>
+	<string>betareading-app</string>
+	<key>STORAGE_BUCKET</key>
+	<string>betareading-app.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:942571972209:ios:1b0eb4ab760b169e195dd0</string>
+</dict>
+</plist>

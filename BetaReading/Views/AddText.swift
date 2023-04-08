@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import UIKit
 import MobileCoreServices
 import FirebaseCore
 import FirebaseFirestore
@@ -16,7 +17,7 @@ import FirebaseStorage
 struct AddText: View {
     @State private var title = ""
     @State private var noTitle = 0
-    @State private var textEditor = "Once upon a time "
+    @State private var textMessage: String = ""
     @State private var showDocumentPicker = false
     @State var alert = false
     
@@ -52,7 +53,7 @@ struct AddText: View {
                     .cornerRadius(10)
                     .border(.red, width: CGFloat(noTitle))
                     .padding(.bottom, 25)
-                TextEditor(text: ($textEditor))
+                TextEditor(text: ($textMessage))
                     .padding()
                     .frame(width: 300, height: 400)
                     .scrollContentBackground(.hidden)
@@ -78,7 +79,7 @@ struct AddText: View {
                 
                 HStack{
                     Button("Submit") {
-                        
+                        convertToPdfFileAndShare(textContent: textMessage)
                     }
                     .padding()
                     .foregroundColor(.white)
@@ -145,4 +146,54 @@ struct DocumentPicker: UIViewControllerRepresentable {
     }
 }
 
+func convertToPdfFileAndShare(textContent: String){
+    
+    let fmt = UIMarkupTextPrintFormatter(markupText: textContent)
+    
+    // 2. Assign print formatter to UIPrintPageRenderer
+    let render = UIPrintPageRenderer()
+    render.addPrintFormatter(fmt, startingAtPageAt: 0)
+    
+    // 3. Assign paperRect and printableRect
+    let page = CGRect(x: 0, y: 0, width: 595.2, height: 841.8) // A4, 72 dpi
+    render.setValue(page, forKey: "paperRect")
+    render.setValue(page, forKey: "printableRect")
+    
+    // 4. Create PDF context and draw
+    let pdfData = NSMutableData()
+    UIGraphicsBeginPDFContextToData(pdfData, .zero, nil)
+    
+    for i in 0..<render.numberOfPages {
+        UIGraphicsBeginPDFPage();
+        render.drawPage(at: i, in: UIGraphicsGetPDFContextBounds())
+    }
+    
+    UIGraphicsEndPDFContext();
+    
+    // 5. Save PDF file
+    guard let outputURL = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("output").appendingPathExtension("pdf")
+        else { fatalError("Destination URL not created") }
+    
+    pdfData.write(to: outputURL, atomically: true)
+    print("open \(outputURL.path)")
+    
+    if FileManager.default.fileExists(atPath: outputURL.path){
+        
+        let url = URL(fileURLWithPath: outputURL.path)
+        let activityViewController: UIActivityViewController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+//        activityViewController.popoverPresentationController?.sourceView = self.view
+        
+        //If user on iPad
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            if activityViewController.responds(to: #selector(getter: UIViewController.popoverPresentationController)) {
+            }
+        }
+//        present(activityViewController, animated: true, completion: nil)
 
+    }
+    else {
+        print("document was not found")
+    }
+    
+
+}

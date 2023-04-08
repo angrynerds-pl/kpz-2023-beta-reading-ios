@@ -40,6 +40,15 @@
 		4030659D29DAD6290036E981 /* FirebaseRemoteConfigSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4030659C29DAD6290036E981 /* FirebaseRemoteConfigSwift */; };
 		4030659F29DAD6290036E981 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 4030659E29DAD6290036E981 /* FirebaseStorage */; };
 		403065A129DAD6290036E981 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 403065A029DAD6290036E981 /* FirebaseStorageCombine-Community */; };
+		403065A429E1BB950036E981 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403065A329E1BB950036E981 /* HomeView.swift */; };
+		403065A529E1BB950036E981 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403065A329E1BB950036E981 /* HomeView.swift */; };
+		403065A629E1BB950036E981 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403065A329E1BB950036E981 /* HomeView.swift */; };
+		403065A829E1BBB10036E981 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403065A729E1BBB10036E981 /* HomeModel.swift */; };
+		403065A929E1BBB10036E981 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403065A729E1BBB10036E981 /* HomeModel.swift */; };
+		403065AA29E1BBB10036E981 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403065A729E1BBB10036E981 /* HomeModel.swift */; };
+		403065AC29E1BBBF0036E981 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403065AB29E1BBBF0036E981 /* HomeViewModel.swift */; };
+		403065AD29E1BBBF0036E981 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403065AB29E1BBBF0036E981 /* HomeViewModel.swift */; };
+		403065AE29E1BBBF0036E981 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403065AB29E1BBBF0036E981 /* HomeViewModel.swift */; };
 		A3E98CBB29D9EEF3000148BE /* BetaReadingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E98CBA29D9EEF3000148BE /* BetaReadingApp.swift */; };
 		A3E98CBD29D9EEF3000148BE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E98CBC29D9EEF3000148BE /* ContentView.swift */; };
 		A3E98CBF29D9EEF4000148BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3E98CBE29D9EEF4000148BE /* Assets.xcassets */; };
@@ -71,6 +80,9 @@
 		4030656329DAC81C0036E981 /* AddText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddText.swift; sourceTree = "<group>"; };
 		4030656729DAD3810036E981 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		403065A229DAEB8E0036E981 /* BetaReading.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BetaReading.entitlements; sourceTree = "<group>"; };
+		403065A329E1BB950036E981 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		403065A729E1BBB10036E981 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeModel.swift; path = BetaReading/Views/HomeModel.swift; sourceTree = SOURCE_ROOT; };
+		403065AB29E1BBBF0036E981 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewModel.swift; path = BetaReading/Views/HomeViewModel.swift; sourceTree = SOURCE_ROOT; };
 		A3E98CB729D9EEF3000148BE /* BetaReading.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BetaReading.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3E98CBA29D9EEF3000148BE /* BetaReadingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetaReadingApp.swift; sourceTree = "<group>"; };
 		A3E98CBC29D9EEF3000148BE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -200,6 +212,7 @@
 		A3E98CE629D9F41C000148BE /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				403065A729E1BBB10036E981 /* HomeModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -209,6 +222,7 @@
 			children = (
 				A3E98CE929D9F4AF000148BE /* LoginView.swift */,
 				4030656329DAC81C0036E981 /* AddText.swift */,
+				403065A329E1BB950036E981 /* HomeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -216,6 +230,7 @@
 		A3E98CE829D9F47A000148BE /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				403065AB29E1BBBF0036E981 /* HomeViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -387,7 +402,10 @@
 			files = (
 				A3E98CEA29D9F4AF000148BE /* LoginView.swift in Sources */,
 				A3E98CBD29D9EEF3000148BE /* ContentView.swift in Sources */,
+				403065AC29E1BBBF0036E981 /* HomeViewModel.swift in Sources */,
+				403065A829E1BBB10036E981 /* HomeModel.swift in Sources */,
 				4030656429DAC81C0036E981 /* AddText.swift in Sources */,
+				403065A429E1BB950036E981 /* HomeView.swift in Sources */,
 				A3E98CBB29D9EEF3000148BE /* BetaReadingApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -396,7 +414,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				403065A929E1BBB10036E981 /* HomeModel.swift in Sources */,
+				403065A529E1BB950036E981 /* HomeView.swift in Sources */,
 				4030656529DAC81C0036E981 /* AddText.swift in Sources */,
+				403065AD29E1BBBF0036E981 /* HomeViewModel.swift in Sources */,
 				A3E98CCC29D9EEF4000148BE /* BetaReadingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -406,7 +427,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				A3E98CD629D9EEF5000148BE /* BetaReadingUITests.swift in Sources */,
+				403065AE29E1BBBF0036E981 /* HomeViewModel.swift in Sources */,
+				403065A629E1BB950036E981 /* HomeView.swift in Sources */,
 				4030656629DAC81C0036E981 /* AddText.swift in Sources */,
+				403065AA29E1BBB10036E981 /* HomeModel.swift in Sources */,
 				A3E98CD829D9EEF5000148BE /* BetaReadingUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -18,7 +18,8 @@ struct BetaReadingApp: App {
     
     var body: some Scene {
         WindowGroup {
-            AddText()
+            HomeView()
+            //AddText()
             //LoginView()
             //ContentView()
         }
