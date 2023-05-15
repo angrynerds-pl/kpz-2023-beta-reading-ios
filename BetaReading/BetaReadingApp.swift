@@ -18,7 +18,10 @@ struct BetaReadingApp: App {
     
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            let authViewModel = AuthenticationViewModel()
+            ContentView()
+                .environmentObject(authViewModel)
+            //HomeView()
             //AddText()
             //LoginView()
             //ContentView()

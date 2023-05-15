@@ -105,42 +105,42 @@ struct DocumentPicker: UIViewControllerRepresentable {
     }
     
     typealias UIViewControllerType = UIDocumentPickerViewController
-    
+
     @Binding var alert : Bool
-    
+
     func makeUIViewController(context: UIViewControllerRepresentableContext<DocumentPicker>) -> UIDocumentPickerViewController {
         let picker = UIDocumentPickerViewController(documentTypes: [String(kUTTypePDF)], in: .import)
         picker.delegate = context.coordinator
         return picker
     }
-    
+
     func updateUIViewController(_ uiViewController: UIDocumentPickerViewController, context: UIViewControllerRepresentableContext<DocumentPicker>) {
         // Nothing to update here
     }
-    
+
     class Coordinator : NSObject, UIDocumentPickerDelegate {
-        
+
         var parent : DocumentPicker
-        
+
         init(parent1 : DocumentPicker) {
             parent = parent1
         }
-        
+
         func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-            
+
             let bucket = Storage.storage().reference()
-            
+
             bucket.child((urls.first?.deletingPathExtension().lastPathComponent)!).putFile(from: urls.first!, metadata: nil) {
                 (_, err) in
-                
+
                 if err != nil {
                     print((err?.localizedDescription)!)
                     return
                 }
-                
+
                 print("success")
                 self.parent.alert.toggle()
-                
+
             }
         }
     }

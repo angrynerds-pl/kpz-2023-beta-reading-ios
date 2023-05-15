@@ -4,10 +4,29 @@ struct HomeView: View {
     @ObservedObject var viewModel = HomeViewModel()
 
     var body: some View {
-
-        List(viewModel.list){item in
-            Text(item.title)
-
+        ZStack(alignment: .leading){
+            Color(red: 67/255, green: 146/255, blue: 138/255).ignoresSafeArea()
+            
+            VStack(alignment: .leading){
+                
+                List{
+                    ForEach(viewModel.list){item in
+                        VStack{
+                            Text(item.title)//+"\n"+item.author)
+                            Text(item.author)
+                        }
+                        
+                    }
+                    
+                   
+                }
+                
+                //List(viewModel.list){item in
+                    //Text(item.title+"\n"+item.author)
+                    //Text(item.author).padding()
+                //}.padding()
+            }
+            
         }
     }
     init(){

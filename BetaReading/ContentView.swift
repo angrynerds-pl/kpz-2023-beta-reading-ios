@@ -7,15 +7,43 @@
 
 import SwiftUI
 
+
+
+
 struct ContentView: View {
+    
+   //@EnvironmentObject var authViewModel: AuthenticationViewModel
+    @StateObject var authViewModel = AuthenticationViewModel()
+
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationView{
+            
+            if authViewModel.signedIn{
+                VStack{
+                    Text("You are signed in")
+                    NavigationLink("Add text", destination: AddText())
+                        .padding()
+                    NavigationLink("Home page", destination: HomeView())
+                        .padding()
+                    Button(action: {
+                        authViewModel.signOut()
+                    }
+                           , label: {
+                        Text ("sign out")
+
+                    })
+
+                }
+            }
+            else{
+                SignInView()
+                    .environmentObject(authViewModel)
+            }
         }
-        .padding()
+        .onAppear{
+            authViewModel.signedIn = authViewModel.isSignedIn
+        }
     }
 }
 
