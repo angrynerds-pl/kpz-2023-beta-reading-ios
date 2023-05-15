@@ -14,7 +14,7 @@ class HomeViewModel: ObservableObject{
         db.collection("Text").getDocuments{snapshot, error in
             if error == nil{
                 if let snapshot = snapshot{
-                    DispatchQueue.main.sync {
+                    DispatchQueue.main.async {
                         self.list = snapshot.documents.map{ d in
                             return HomeModel(id: d.documentID,
                                              title: d["title"] as? String ?? "",
