@@ -66,7 +66,8 @@ struct SignInView: View {
                             .foregroundColor(.white)
 //                        Button("sign up"){}
 //                            .foregroundColor(Color(red: 254/255, green: 144/255, blue: 42/255))
-                        NavigationLink("sign up", destination: SignUpView())
+                        NavigationLink("sign up", destination: SignUpView()
+                            .environmentObject(authViewModel))
                             .foregroundColor(Color(red: 254/255, green: 144/255, blue: 42/255))
                     }
                     NavigationLink("Forgot your password?", destination: ResetPasswordView())
@@ -89,8 +90,8 @@ struct SignInView: View {
                     })
                 }
                // .navigationTitle("Sign In")
-            }
         }
+    }
 }
 
 struct SignInView_Previews: PreviewProvider {

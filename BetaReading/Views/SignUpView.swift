@@ -10,6 +10,9 @@ import SwiftUI
 struct SignUpView: View {
     @State private var email = ""
     @State private var password = ""
+    @State private var firstName = ""
+    @State private var lastName = ""
+    @State private var repeatPassword = ""
     @State private var wrongUsername = 0
     @State private var wrongPassword = 0
     @State private var showingLoginScreen = false
@@ -35,12 +38,34 @@ struct SignUpView: View {
                     .cornerRadius(10)
                     .border(.red, width: CGFloat(wrongUsername))
                     .padding()
+                
+                TextField("First Name", text: $firstName )
+                    .padding()
+                    .frame(width: 300, height: 50)
+                    .background(Color(red: 217/255, green: 217/255, blue: 217/255))
+                    .cornerRadius(10)
+                    .border(.red, width: CGFloat(wrongUsername))
+                    .padding()
+                
+                TextField("Last Name", text: $lastName)
+                    .padding()
+                    .frame(width: 300, height: 50)
+                    .background(Color(red: 217/255, green: 217/255, blue: 217/255))
+                    .cornerRadius(10)
+                    .border(.red, width: CGFloat(wrongUsername))
+                    .padding()
+                
                 HStack{
                     if showPassword{
                         SecureField("Password", text: $password)
+                        
+                        
                     }else {
                         TextField(password, text: $password)
                     }
+                    
+                    
+                    
                 }
                     .padding()
                     .frame(width: 300, height: 50)
@@ -54,11 +79,39 @@ struct SignUpView: View {
                             showPassword.toggle()
                         }
                 }
-                Button(action: {
-                    guard !email.isEmpty, !password.isEmpty else{
-                        return
+                    .padding()
+                
+                HStack{
+                    if showPassword{
+                        SecureField("Repeat Password", text: $repeatPassword)
+                        
+                    }else {
+                        TextField(repeatPassword, text: $repeatPassword)
                     }
-                    authViewModel.signUp(email: email, password: password)
+                    
+                    
+                    
+                }
+                    .padding()
+                    .frame(width: 300, height: 50)
+                    .background(Color(red: 217/255, green: 217/255, blue: 217/255))
+                    .cornerRadius(10)
+                    .border(.red, width: CGFloat(wrongPassword))
+                    .overlay(alignment: .trailing){
+                    Image(systemName: showPassword ? "eye.slash" : "eye")
+                        .padding()
+                        .onTapGesture {
+                            showPassword.toggle()
+                        }
+                }
+                    .padding()
+                
+                
+                Button(action: {
+                    guard !email.isEmpty, !password.isEmpty, password == repeatPassword else {
+                            return
+                        }
+                    authViewModel.signUp(email: email, password: password, firstName: firstName, lastName: lastName )
                 }, label: {
                     Text("Sign Up")
                     .padding()

@@ -27,6 +27,8 @@ struct ResetPasswordView: View {
                 
                 Spacer()
                 Text("Enter your email to reset your password")
+                    .foregroundColor(Color(red: 217/255, green: 217/255, blue: 217/255))
+                    .padding()
                 
                 TextField("Email", text: $email)
                     .padding()
