@@ -10,14 +10,14 @@ import Foundation
 struct User {
     let uid: String
     let email: String
-    let firstName: String
-    let lastName: String
+    let name: String
+    let surname: String
 
     // Konstruktor
-    init(uid: String, email: String, firstName: String, lastName: String) {
+    init(uid: String, email: String, name: String, surname: String) {
         self.uid = uid
         self.email = email
-        self.firstName = firstName
-        self.lastName = lastName
+        self.name = name
+        self.surname = surname
     }
 }

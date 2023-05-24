@@ -15,16 +15,16 @@ struct TabBarView: View {
                 .tabItem {
                     Label("", systemImage: "house")
                 }
-            AddText()
+            MyTextsView()
                 .tabItem {
                     Label("", systemImage: "book")
                     
                 }
-            TestUIView()
-                .tabItem {
-                    Label("", systemImage: "message")
-                }
-            TestUIView()
+//            TestUIView()
+//                .tabItem {
+//                    Label("", systemImage: "message")
+//                }
+            UserProfileView()
                 .tabItem {
                     Label("", systemImage: "person")
                 }

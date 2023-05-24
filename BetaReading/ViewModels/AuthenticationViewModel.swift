@@ -41,7 +41,7 @@ class AuthenticationViewModel: ObservableObject {
         }
     }
     
-    func signUp(email: String, password: String, firstName: String, lastName: String){
+    func signUp(email: String, password: String, name: String, surname: String){
         //Creating a new user from the data
         auth.createUser(withEmail: email, password: password){[weak self] result, error in
            // guard result != nil, error == nil else{
@@ -52,7 +52,7 @@ class AuthenticationViewModel: ObservableObject {
                 //Success
                 self?.signedIn = true
                 //Adding user to collection in firebase
-                let userObject =  User(uid: user.uid, email: email, firstName: firstName, lastName: lastName)
+                let userObject =  User(uid: user.uid, email: email, name: name, surname: surname)
                 let userRef = self?.firestore.collection("Users").document(user.uid)
                     userRef?.setData(self?.userToDictionary(userObject) ?? [:]) { error in
                     if let error = error {
@@ -98,8 +98,8 @@ class AuthenticationViewModel: ObservableObject {
     private func userToDictionary(_ user: User) -> [String: Any] {
             return [
                 "email": user.email,
-                "firstName": user.firstName,
-                "lastName": user.lastName
+                "name": user.name,
+                "surname": user.surname
             ]
         }
     

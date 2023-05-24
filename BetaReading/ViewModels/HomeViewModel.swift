@@ -20,6 +20,7 @@ class HomeViewModel: ObservableObject{
     private let db = Firestore.firestore()
     @Published var pdfURL: URL?
     
+    
     func getData(){
         //let db = Firestore.firestore()
         db.collection("Text").getDocuments{snapshot, error in
@@ -32,8 +33,7 @@ class HomeViewModel: ObservableObject{
                                              content: d["content"] as? String ?? "",
                                              timestamp: d["timestamp"] as? String ?? "",
                                              title: d["title"] as? String ?? "",
-                                             userId: d["userId"] as? String ?? "",
-                                             pdfURL: d["pdfURL"] as? String ?? ""
+                                             userId: d["userId"] as? String ?? ""
                             )
                         }
                     }
@@ -59,4 +59,12 @@ class HomeViewModel: ObservableObject{
                 print(self.pdfURL as Any)
             }
         }
+    
+    func checkUserId(_ userId: String) -> Bool {
+        guard let currentUser = Auth.auth().currentUser else {
+            return false // Jeśli nie ma zalogowanego użytkownika, zwróć false lub odpowiednią wartość domyślną
+        }
+        
+        return userId == currentUser.uid
+    }
 }

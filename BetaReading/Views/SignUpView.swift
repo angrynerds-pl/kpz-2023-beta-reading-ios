@@ -10,8 +10,8 @@ import SwiftUI
 struct SignUpView: View {
     @State private var email = ""
     @State private var password = ""
-    @State private var firstName = ""
-    @State private var lastName = ""
+    @State private var name = ""
+    @State private var surname = ""
     @State private var repeatPassword = ""
     @State private var wrongUsername = 0
     @State private var wrongPassword = 0
@@ -39,7 +39,7 @@ struct SignUpView: View {
                     .border(.red, width: CGFloat(wrongUsername))
                     .padding()
                 
-                TextField("First Name", text: $firstName )
+                TextField("First Name", text: $name )
                     .padding()
                     .frame(width: 300, height: 50)
                     .background(Color(red: 217/255, green: 217/255, blue: 217/255))
@@ -47,7 +47,7 @@ struct SignUpView: View {
                     .border(.red, width: CGFloat(wrongUsername))
                     .padding()
                 
-                TextField("Last Name", text: $lastName)
+                TextField("Last Name", text: $surname)
                     .padding()
                     .frame(width: 300, height: 50)
                     .background(Color(red: 217/255, green: 217/255, blue: 217/255))
@@ -63,9 +63,7 @@ struct SignUpView: View {
                     }else {
                         TextField(password, text: $password)
                     }
-                    
-                    
-                    
+                
                 }
                     .padding()
                     .frame(width: 300, height: 50)
@@ -111,7 +109,7 @@ struct SignUpView: View {
                     guard !email.isEmpty, !password.isEmpty, password == repeatPassword else {
                             return
                         }
-                    authViewModel.signUp(email: email, password: password, firstName: firstName, lastName: lastName )
+                    authViewModel.signUp(email: email, password: password, name: name, surname: surname )
                 }, label: {
                     Text("Sign Up")
                     .padding()
