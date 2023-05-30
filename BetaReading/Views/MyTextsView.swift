@@ -11,6 +11,8 @@ struct MyTextsView: View {
     @ObservedObject var viewModel = HomeViewModel()
         @State private var showNewView = false
         @State private var showPDF = false // Dodane pole @State
+        @State private var selectedPDFURL: URL?// Dodane pole @State
+
        // @EnvironmentObject var userr: User // Dodane pole @EnvironmentObject
 
         var body: some View {
@@ -23,11 +25,11 @@ struct MyTextsView: View {
                                 .font(.title)
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
-                                
+
                             NavigationLink("Add text +", destination: AddText())
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
-                                
+
                         }
                         Image("AngryReaders")
                             .resizable()
@@ -43,11 +45,17 @@ struct MyTextsView: View {
                                         Text(item.title)
                                             .fontWeight(.bold)
                                         Text(item.author)
-                                        
+
                                         Text(item.content)
+//                                        Button("Open PDF") {
+//                                        //    viewModel.fetchPDFURL(for: item.author, title: item.title)
+//                                            showPDF = true // Ustawienie wartości na true po naciśnięciu przycisku
+//                                        }
                                         Button("Open PDF") {
-                                            viewModel.fetchPDFURL(for: item.author, title: item.title)
-                                            showPDF = true // Ustawienie wartości na true po naciśnięciu przycisku
+                                            viewModel.fetchPDFURL(for: item.author, title: item.title) { pdfURL in
+                                                selectedPDFURL = pdfURL
+                                                showPDF = true
+                                            }
                                         }
                                     }
                                     .listRowBackground(Color(red: 217/255, green: 217/255, blue: 217/255))
@@ -62,7 +70,7 @@ struct MyTextsView: View {
                 }
             }
             .sheet(isPresented: $showPDF) { // Wyświetlanie arkusza jako model
-                if let pdfURL = viewModel.pdfURL {
+                if let pdfURL = selectedPDFURL {
                     PDFViewContainer(pdfURL: pdfURL)
                         .edgesIgnoringSafeArea(.all) // Dodatkowe dostosowanie dla arkusza modalnego
                 }
