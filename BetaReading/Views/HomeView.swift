@@ -76,6 +76,7 @@ struct HomeView: View {
     @State private var showNewView = false
     @State private var showPDF = false // Dodane pole @State
     @State private var selectedPDFURL: URL?// Dodane pole @State
+    @State private var showCommentView = false
 
     var body: some View {
         ZStack {
@@ -115,6 +116,17 @@ struct HomeView: View {
                                         showPDF = true
                                     }
                                 }
+                                Button(action: {
+                                withAnimation {
+                                 showCommentView = true
+                                }
+                                }) {
+                                Image(systemName: "bubble.left")
+                                    }
+                                .sheet(isPresented: $showCommentView) {
+                                CommentView(textId: item.textId)
+                                }
+                                
                             }
                             .listRowBackground(Color(red: 217/255, green: 217/255, blue: 217/255))
                             .listRowBackground(RoundedRectangle(cornerRadius: 5))

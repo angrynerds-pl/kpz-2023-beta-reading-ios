@@ -16,6 +16,7 @@ struct HomeModel: Identifiable, Codable{
     var timestamp: String
     var title: String
     var userId: String
+    var textId: String
     //var pdfURL: String
     //@DocumentID var id: String?
     //timestamp i file

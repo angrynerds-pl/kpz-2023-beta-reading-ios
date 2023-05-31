@@ -140,7 +140,8 @@ struct DocumentPicker: UIViewControllerRepresentable {
                         "title": self.parent.title,
                         "userID": userID,
                         "fileURL": downloadURL.absoluteString,
-                        "timestamp": Timestamp()
+                        "timestamp": Timestamp(),
+                        "textId": UUID().uuidString // Generate unique ID for text document
                     ]
 
                     db.collection("Text").addDocument(data: documentData) { error in
@@ -210,7 +211,8 @@ func convertToPdfFileAndShare(textContent: String, title: String, showAlert: Bin
                     "title": "\(userID)_\(title)",
                     "userID": userID,
                     "fileURL": downloadURL.absoluteString,
-                    "timestamp": Timestamp()
+                    "timestamp": Timestamp(),
+                    "textId": UUID().uuidString // Generate unique ID for text document
                 ]
 
                 db.collection("Text").addDocument(data: documentData) { error in

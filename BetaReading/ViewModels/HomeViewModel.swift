@@ -33,7 +33,8 @@ class HomeViewModel: ObservableObject{
                                              content: d["content"] as? String ?? "",
                                              timestamp: d["timestamp"] as? String ?? "",
                                              title: d["title"] as? String ?? "",
-                                             userId: d["userId"] as? String ?? ""
+                                             userId: d["userId"] as? String ?? "",
+                                             textId: d["textId"] as? String ?? ""
                             )
                         }
                     }
