@@ -15,20 +15,23 @@ class UserProfileViewModel: ObservableObject {
     private var db = Firestore.firestore()
     
     func fetchData() {
-        db.collection("Users").addSnapshotListener { (querySnapshot, error) in
-            guard let documents = querySnapshot?.documents else {
-                print("No documents")
-                return
-            }
-            
-            self.users = documents.map { (queryDocumentSnapshot) -> User in
-                let data = queryDocumentSnapshot.data()
-                let uid = data["uid"] as? String ?? ""
-                let email = data["email"] as? String ?? ""
-                let name = data["name"] as? String ?? ""
-                let surname = data["surname"] as? String ?? ""
-               
-                return User(uid: uid, email: email, name: name, surname: surname)
+
+        db.collection("Users")
+            .getDocuments{snapshot, error in
+            if error == nil{
+                if let snapshot = snapshot{
+                    DispatchQueue.main.async {
+                        self.users = snapshot.documents.map{ d in
+                            return User(uid: d.documentID,
+                                        email: d["email"] as? String ?? "",
+                                        name: d["name"] as? String ?? "",
+                                        surname: d["surname"] as? String ?? ""
+                            )
+                        }
+                    }
+                }
+            } else{
+                //Error handling
             }
         }
     }

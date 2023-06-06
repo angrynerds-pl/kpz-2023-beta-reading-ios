@@ -13,8 +13,6 @@ struct MyTextsView: View {
         @State private var showPDF = false // Dodane pole @State
         @State private var selectedPDFURL: URL?// Dodane pole @State
 
-       // @EnvironmentObject var userr: User // Dodane pole @EnvironmentObject
-
         var body: some View {
             ZStack {
                 Color(red: 67/255, green: 146/255, blue: 138/255).ignoresSafeArea()
@@ -40,23 +38,23 @@ struct MyTextsView: View {
                     VStack(alignment: .leading) {
                         List {
                             ForEach(viewModel.list) { item in
-                                if viewModel.checkUserId(item.author) { // Sprawdzanie pola "userid" dla każdego elementu i porównywanie z bieżącym użytkownikiem
+                                if viewModel.checkUserId(item.author) {
                                     Section {
                                         Text(item.title)
                                             .fontWeight(.bold)
                                         Text(item.author)
 
                                         Text(item.content)
-//                                        Button("Open PDF") {
-//                                        //    viewModel.fetchPDFURL(for: item.author, title: item.title)
-//                                            showPDF = true // Ustawienie wartości na true po naciśnięciu przycisku
-//                                        }
+                                        
                                         Button("Open PDF") {
                                             viewModel.fetchPDFURL(for: item.author, title: item.title) { pdfURL in
                                                 selectedPDFURL = pdfURL
                                                 showPDF = true
                                             }
                                         }
+                                    }
+                                    .onAppear {
+                                        viewModel.getData()
                                     }
                                     .listRowBackground(Color(red: 217/255, green: 217/255, blue: 217/255))
                                     .listRowBackground(RoundedRectangle(cornerRadius: 5))
@@ -69,10 +67,10 @@ struct MyTextsView: View {
                     }
                 }
             }
-            .sheet(isPresented: $showPDF) { // Wyświetlanie arkusza jako model
+            .sheet(isPresented: $showPDF) {
                 if let pdfURL = selectedPDFURL {
                     PDFViewContainer(pdfURL: pdfURL)
-                        .edgesIgnoringSafeArea(.all) // Dodatkowe dostosowanie dla arkusza modalnego
+                        .edgesIgnoringSafeArea(.all)
                 }
             }
         }

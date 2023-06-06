@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TabBarView: View {
-
+    @EnvironmentObject var authViewModel: AuthenticationViewModel
     var body: some View {
         TabView{
             HomeView()
@@ -20,14 +20,11 @@ struct TabBarView: View {
                     Label("", systemImage: "book")
                     
                 }
-//            TestUIView()
-//                .tabItem {
-//                    Label("", systemImage: "message")
-//                }
             UserProfileView()
                 .tabItem {
                     Label("", systemImage: "person")
                 }
+                .environmentObject(authViewModel)
             }
         .accentColor(.black)
         .edgesIgnoringSafeArea(.bottom)

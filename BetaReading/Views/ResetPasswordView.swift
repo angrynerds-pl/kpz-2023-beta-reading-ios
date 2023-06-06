@@ -11,9 +11,9 @@ struct ResetPasswordView: View {
     @State private var email = ""
     @State private var wrongUsername = 0
     @State private var showingLoginScreen = false
-    
-    //@StateObject private var vm = SignUpViewModel()
+    @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var authViewModel: AuthenticationViewModel
+    
     
     var body: some View {
         ZStack {
@@ -31,6 +31,8 @@ struct ResetPasswordView: View {
                     .padding()
                 
                 TextField("Email", text: $email)
+                    .disableAutocorrection(true)
+                    .autocapitalization(.none)
                     .padding()
                     .frame(width: 300, height: 50)
                     .background(Color(red: 217/255, green: 217/255, blue: 217/255))
@@ -39,43 +41,41 @@ struct ResetPasswordView: View {
                     .padding()
                 
                 Spacer()
-                
+                if authViewModel.errorOccurred {
+                    Text(authViewModel.errorMessage)
+                        .foregroundColor(.red)
+                        .padding()
+                }
                 Button(action: {
-                    guard !email.isEmpty else{
-                        return
-                    }
+                    
                     authViewModel.resetPassword(email: email)
+                    
                 }, label: {
                     Text("Reset")
-                    .padding()
-                    .foregroundColor(.white)
-                    .frame(width: 120, height: 50)
-                    .background(Color(red: 254/255, green: 144/255, blue: 42/255))
-                    .cornerRadius(20)
+                        .padding()
+                        .foregroundColor(.white)
+                        .frame(width: 120, height: 50)
+                        .background(Color(red: 254/255, green: 144/255, blue: 42/255))
+                        .cornerRadius(20)
+                    
                 })
-            
-//            Button("Sign up"){
-//
-//                vm.signUp(email: email, password: password ){ result in
-//                    switch result {
-//                        case.success(_):
-//                            print("Take the user to login screen")          //TO DO
-//                        case.failure(let error):
-//                            vm.errorMessage = error.errorMessage
-//                    }
-//
-//                }
-//            }
-                    .padding()
-                    .foregroundColor(.white)
-                    .frame(width: 120, height: 50)
-                    .background(Color(red: 254/255, green: 144/255, blue: 42/255))
-                    .cornerRadius(20)
-                
-//                if let errorMessage = vm.errorMessage {
-//                    Text(errorMessage)
-//                }
+                .padding()
+                .foregroundColor(.white)
+                .frame(width: 120, height: 50)
+                .background(Color(red: 254/255, green: 144/255, blue: 42/255))
+                .cornerRadius(20)
+                .onReceive(authViewModel.$errorOccurred) { errorOccurred in
+                    if !errorOccurred {
+
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                }
             }
+        }
+        .onAppear {
+            // Wyczyść zmienne przy wejściu do widoku
+            email = ""
+            authViewModel.errorOccurred = false
         }
     }
 }

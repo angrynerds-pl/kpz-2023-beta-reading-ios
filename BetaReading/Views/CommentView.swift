@@ -13,7 +13,7 @@ import FirebaseAuth
 
 struct CommentView: View {
     @State private var comment = ""
-    let textId: String // Add this property
+    let textId: String
 
     var body: some View {
         VStack {
@@ -44,7 +44,7 @@ struct CommentView: View {
         }
 
         let commentData: [String: Any] = [
-            "textId": textId, // Use the provided textID
+            "textId": textId, 
             "author": currentUserID,
             "comment": comment
         ]

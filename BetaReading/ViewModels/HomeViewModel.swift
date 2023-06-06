@@ -23,7 +23,9 @@ class HomeViewModel: ObservableObject{
     
     func getData(){
         //let db = Firestore.firestore()
-        db.collection("Text").getDocuments{snapshot, error in
+        db.collection("Text")
+            .order(by: "timestamp", descending: true)
+            .getDocuments{snapshot, error in
             if error == nil{
                 if let snapshot = snapshot{
                     DispatchQueue.main.async {
@@ -44,22 +46,7 @@ class HomeViewModel: ObservableObject{
             }
         }
     }
-    
-//    func fetchPDFURL(for itemId: String, title: String) {
-//            let query = db.collection("Text")
-//                .whereField("author", isEqualTo: itemId)
-//                .whereField("title", isEqualTo: title)
-//            query.getDocuments { snapshot, error in
-//                DispatchQueue.main.async {
-//                    if let document = snapshot?.documents.first,
-//                       let fileURL = document.data()["fileURL"] as? String {
-//                        self.pdfURL = URL(string: fileURL)
-//                        print("")
-//                        print("vieWModel", self.pdfURL as Any)
-//                    }
-//                }
-//            }
-//        }
+ 
     func fetchPDFURL(for itemId: String, title: String, completion: @escaping (URL?) -> Void) {
         let query = db.collection("Text")
             .whereField("author", isEqualTo: itemId)
@@ -84,7 +71,7 @@ class HomeViewModel: ObservableObject{
     
     func checkUserId(_ userId: String) -> Bool {
         guard let currentUser = Auth.auth().currentUser else {
-            return false // Jeśli nie ma zalogowanego użytkownika, zwróć false lub odpowiednią wartość domyślną
+            return false
         }
         
         return userId == currentUser.uid

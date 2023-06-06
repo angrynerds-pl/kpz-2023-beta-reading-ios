@@ -13,7 +13,6 @@ struct User {
     let name: String
     let surname: String
 
-    // Konstruktor
     init(uid: String, email: String, name: String, surname: String) {
         self.uid = uid
         self.email = email

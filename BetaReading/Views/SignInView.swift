@@ -19,77 +19,86 @@ struct SignInView: View {
     @EnvironmentObject var authViewModel: AuthenticationViewModel
     
     var body: some View {
-            ZStack {
-                Color(red: 67/255, green: 146/255, blue: 138/255).ignoresSafeArea()
-                VStack {
-                    Image("AngryReaders")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 299)
-                        .aspectRatio(contentMode: .fit)
-                    
-                    TextField("Email", text: $email)
-                        .disableAutocorrection(true)
-                        .autocapitalization(.none)
-                        .padding()
-                        .frame(width: 300, height: 50)
-                        .background(Color(red: 217/255, green: 217/255, blue: 217/255))
-                        .cornerRadius(10)
-                        .border(.red, width: CGFloat(wrongUsername))
-                        .padding()
-                    HStack{
-                        if showPassword{
-                            SecureField("Password", text: $password)
-                                .disableAutocorrection(true)
-                                .autocapitalization(.none)
-                        }else {
-                            TextField(password, text: $password)
-                                .disableAutocorrection(true)
-                                .autocapitalization(.none)
-                        }
-                    }
+        ZStack {
+            Color(red: 67/255, green: 146/255, blue: 138/255).ignoresSafeArea()
+            VStack {
+                Image("AngryReaders")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 299)
+                    .aspectRatio(contentMode: .fit)
+                
+                TextField("Email", text: $email)
+                    .disableAutocorrection(true)
+                    .autocapitalization(.none)
                     .padding()
                     .frame(width: 300, height: 50)
                     .background(Color(red: 217/255, green: 217/255, blue: 217/255))
                     .cornerRadius(10)
-                    .border(.red, width: CGFloat(wrongPassword))
-                    .overlay(alignment: .trailing){
-                        Image(systemName: showPassword ? "eye.slash" : "eye")
-                            .padding()
-                            .onTapGesture {
-                                showPassword.toggle()
-                            }
+                    .border(.red, width: CGFloat(wrongUsername))
+                    .padding()
+                HStack{
+                    if showPassword{
+                        TextField(password, text: $password)
+                            .disableAutocorrection(true)
+                            .autocapitalization(.none)
+                        
+                    }else {
+                        SecureField("Password", text: $password)
+                            .disableAutocorrection(true)
+                            .autocapitalization(.none)
                     }
                     
-                    HStack{
-                        Text("don't have an account?")
-                            .foregroundColor(.white)
-//                        Button("sign up"){}
-//                            .foregroundColor(Color(red: 254/255, green: 144/255, blue: 42/255))
-                        NavigationLink("sign up", destination: SignUpView()
-                            .environmentObject(authViewModel))
-                            .foregroundColor(Color(red: 254/255, green: 144/255, blue: 42/255))
-                    }
-                    NavigationLink("Forgot your password?", destination: ResetPasswordView())
-                        .foregroundColor(Color(red: 217/255, green: 217/255, blue: 217/255))
-                        .underline()
+                }
+                .padding()
+                .frame(width: 300, height: 50)
+                .background(Color(red: 217/255, green: 217/255, blue: 217/255))
+                .cornerRadius(10)
+                .border(.red, width: CGFloat(wrongPassword))
+                .overlay(alignment: .trailing){
+                    Image(systemName: showPassword ? "eye" : "eye.slash")
                         .padding()
-                    
-                    Button(action: {
-                        guard !email.isEmpty, !password.isEmpty else{
-                            return
+                        .onTapGesture {
+                            showPassword.toggle()
                         }
-                        authViewModel.signIn(email: email, password: password)
-                    }, label: {
-                        Text("Sign In")
+                }
+                
+                HStack{
+                    Text("don't have an account?")
+                        .foregroundColor(.white)
+                    NavigationLink("sign up", destination: SignUpView()
+                        .environmentObject(authViewModel))
+                    .foregroundColor(Color(red: 254/255, green: 144/255, blue: 42/255))
+                }
+                NavigationLink("Forgot your password?", destination: ResetPasswordView()
+                    .environmentObject(authViewModel))
+                .foregroundColor(Color(red: 217/255, green: 217/255, blue: 217/255))
+                .underline()
+                .padding()
+                if authViewModel.errorOccurred {
+                    Text(authViewModel.errorMessage)
+                        .foregroundColor(.red)
+                        .padding()
+                }
+                Button(action: {
+                    guard !email.isEmpty, !password.isEmpty else{
+                        return
+                    }
+                    authViewModel.signIn(email: email, password: password)
+                }, label: {
+                    Text("Sign In")
                         .padding()
                         .foregroundColor(.white)
                         .frame(width: 120, height: 50)
                         .background(Color(red: 254/255, green: 144/255, blue: 42/255))
                         .cornerRadius(20)
-                    })
-                }
-               // .navigationTitle("Sign In")
+                })
+            }
+        }
+        .onAppear {
+            email = ""
+            password = ""
+            authViewModel.errorOccurred = false
         }
     }
 }

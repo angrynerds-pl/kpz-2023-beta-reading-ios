@@ -4,36 +4,26 @@
 //
 //  Created by Julia Gościniak on 17/05/2023.
 //
-
+//
 import SwiftUI
+import FirebaseAuth
 
 struct UserProfileView: View {
-    
-    //@ObservedObject var authViewModel = AuthenticationViewModel
+
+  //  @ObservedObject var profileViewModel = UserProfileViewModel
 
     @EnvironmentObject var authViewModel: AuthenticationViewModel
+    let auth = Auth.auth()
+    @ObservedObject var userProfileViewModel = UserProfileViewModel()
+
+    var userId = Auth.auth().currentUser?.uid ?? ""
     @State private var temp = ""
-    
+   // let user = userProfileViewModel.users.first(where: { $0.uid == userId })
+   
+
     var body: some View {
         ZStack {
             Color(red: 67/255, green: 146/255, blue: 138/255).ignoresSafeArea()
-            VStack(alignment: .leading) {
-                //            List {
-                //                ForEach(authViewModel.list) { item in
-                //                    Section {
-                //                        Text(item.name)
-                //                        
-                //                        Text(item.surname)
-                //                    }
-                //                    .listRowBackground(Color(red: 217/255, green: 217/255, blue: 217/255))
-                //                    .listRowBackground(RoundedRectangle(cornerRadius: 5))
-                //                    .listRowSeparator(.hidden)
-                //                }
-                //            }
-                //            .scrollContentBackground(.hidden)
-                Spacer()
-            }
-            
             VStack{
                 HStack(alignment: .center, spacing: 60) {
                     Text("Profile")
@@ -49,31 +39,58 @@ struct UserProfileView: View {
                 }
                 Spacer()
                 VStack{
-                    TextField("Julia", text: $temp)
-                        .padding()
-                        .frame(width: 300, height: 50)
-                        .background(Color(red: 217/255, green: 217/255, blue: 217/255))
-                        .cornerRadius(10)
-                        .padding()
-                    
-                    TextField("Gosciniak", text: $temp)
-                        .padding()
-                        .frame(width: 300, height: 50)
-                        .background(Color(red: 217/255, green: 217/255, blue: 217/255))
-                        .cornerRadius(10)
-                        .padding()
-                    TextField("259164@student.pwr.edu.pl", text: $temp)
-                        .padding()
-                        .frame(width: 300, height: 50)
-                        .background(Color(red: 217/255, green: 217/255, blue: 217/255))
-                        .cornerRadius(10)
-                        .padding()
-                    TextEditor(text: $temp)
-                        .padding()
-                        .frame(width: 300, height: 200)
-                        .background(Color(red: 217/255, green: 217/255, blue: 217/255))
-                        .cornerRadius(10)
-                    
+                    if let user = userProfileViewModel.users.first(where: { $0.uid == userId }) {
+                        
+                        Text(user.name)
+                            .padding()
+                            .frame(width: 300, height: 50)
+                            .background(Color(red: 217/255, green: 217/255, blue: 217/255))
+                            .cornerRadius(10)
+                            .padding()
+                        
+                        Text(user.surname)
+                            .padding()
+                            .frame(width: 300, height: 50)
+                            .background(Color(red: 217/255, green: 217/255, blue: 217/255))
+                            .cornerRadius(10)
+                            .padding()
+                        
+                        Text(user.email)
+                            .padding()
+                            .frame(width: 300, height: 50)
+                            .background(Color(red: 217/255, green: 217/255, blue: 217/255))
+                            .cornerRadius(10)
+                            .padding()
+                    }
+                        else{
+                            Text("Name")
+                                .padding()
+                                .frame(width: 300, height: 50)
+                                .background(Color(red: 217/255, green: 217/255, blue: 217/255))
+                                .cornerRadius(10)
+                                .padding()
+                                
+                            
+                            Text("Surname")
+                                .padding()
+                                .frame(width: 300, height: 50)
+                                .background(Color(red: 217/255, green: 217/255, blue: 217/255))
+                                .cornerRadius(10)
+                                .padding()
+                            
+                            Text("Email")
+                                .padding()
+                                .frame(width: 300, height: 50)
+                                .background(Color(red: 217/255, green: 217/255, blue: 217/255))
+                                .cornerRadius(10)
+                                .padding()
+                        }
+                        TextEditor(text: $temp)
+                            .padding()
+                            .frame(width: 300, height: 200)
+                            .background(Color(red: 217/255, green: 217/255, blue: 217/255))
+                            .cornerRadius(10)
+        
                     Spacer()
                     Button(action: {
                         authViewModel.signOut()
@@ -85,15 +102,18 @@ struct UserProfileView: View {
                             .frame(width: 120, height: 50)
                             .background(Color(red: 254/255, green: 144/255, blue: 42/255))
                             .cornerRadius(20)
-                        
+
                     })
                     .padding()
                 }
 
             }
         }
-        
+
     }
+    init() {
+            userProfileViewModel.fetchData()
+        }
 }
 
 struct UserProfileView_Previews: PreviewProvider {
@@ -101,3 +121,4 @@ struct UserProfileView_Previews: PreviewProvider {
         UserProfileView()
     }
 }
+
